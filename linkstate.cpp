@@ -72,9 +72,9 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<in
         sort(tableEntries.begin(), tableEntries.end());
 
         // Skip printing if the table contains only the node's entry for itself
-        if (tableEntries.size() == 1 && tableEntries[0].first == id) {
-            continue;
-        }
+        //if (tableEntries.size() == 1 && tableEntries[0].first == id) {
+        //    continue;
+       // }
 
         //outfile << "<forwarding table entries for node " << id << ">\n";
         for (const auto& entry : tableEntries) {
