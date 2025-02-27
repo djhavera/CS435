@@ -181,22 +181,26 @@ void writeForwardingTable(ofstream& outfile,
                           const map<int, map<int,int>>& dist,
                           const map<int, map<int,int>>& nextHop)
 {
-    // For each node i
-    for (auto& [i, row] : dist) {
+    vector<int> nodeIds;
+    for (auto& [id, _] : dist) {
+        nodeIds.push_back(id);
+    }
+    sort(nodeIds.begin(), nodeIds.end());
+
+    for (int i : nodeIds) {
         outfile << "<forwarding table entries for node " << i << ">\n";
-        // Gather (destination, nextHop, cost), skip unreachable
         vector<pair<int,pair<int,int>>> entries;
-        for (auto& [dest, cost] : row) {
+        for (auto& [dest, cost] : dist.at(i)) {
             if (cost < INF) {
                 entries.push_back({dest,{nextHop.at(i).at(dest), cost}});
             }
         }
-        sort(entries.begin(), entries.end(), 
-            [](auto &a, auto &b) { return a.first < b.first; }
-        );
+        sort(entries.begin(), entries.end());
+        
         for (auto& e : entries) {
             outfile << e.first << " " << e.second.first << " " << e.second.second << "\n";
         }
+        outfile << "\n"; // Add blank line between tables
     }
 }
 

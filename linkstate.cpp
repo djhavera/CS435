@@ -65,7 +65,13 @@ void parseChangesFile(const string& filename, vector<tuple<int, int, int>>& chan
 }
 
 void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes) {
-    for (const auto& [id, node] : nodes) {
+    vector<int> nodeIds;
+    for (const auto& [id, _] : nodes) {
+        nodeIds.push_back(id);
+    }
+    sort(nodeIds.begin(), nodeIds.end());
+
+    for (int id : nodeIds) {
         outfile << "<forwarding table entries for node " << id << ">\n";
         // Compute shortest paths using Dijkstra's algorithm
         map<int, int> dist;
@@ -107,8 +113,11 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes) {
         sort(tableEntries.begin(), tableEntries.end());
 
         for (const auto& entry : tableEntries) {
-            outfile << entry.first << " " << entry.second.first << " " << entry.second.second << "\n";
+            if (entry.second.second < numeric_limits<int>::max()) {
+                outfile << entry.first << " " << entry.second.first << " " << entry.second.second << "\n";
+            }
         }
+        outfile << "\n"; // Add blank line between tables
     }
 }
 
