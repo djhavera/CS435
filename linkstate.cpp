@@ -72,7 +72,7 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes) {
     sort(nodeIds.begin(), nodeIds.end());
 
     for (int id : nodeIds) {
-        outfile << "<forwarding table entries for node " << id << ">\n";
+        // outfile << "<forwarding table entries for node " << id << ">\n";
         // Compute shortest paths using Dijkstra's algorithm
         map<int, int> dist;
         map<int, int> nextHop;
@@ -122,7 +122,7 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes) {
 }
 
 void writeMessages(ofstream& outfile, const vector<string>& messages, const map<int, Node>& nodes) {
-    outfile << "<message output lines>\n";
+    // outfile << "<message output lines>\n";
     for (const auto& message : messages) {
         istringstream iss(message);
         int src, dst;
@@ -191,7 +191,7 @@ int main(int argc, char** argv) {
             nodes[from].edges[to] = {to, cost};
             nodes[to].edges[from] = {from, cost};
         }
-        outfile << "----- At this point, change is applied\n";
+       // outfile << "----- At this point, change is applied\n";
         writeForwardingTable(outfile, nodes);
         writeMessages(outfile, messages, nodes);
     }
