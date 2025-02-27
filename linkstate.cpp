@@ -194,7 +194,7 @@ int main(int argc, char** argv) {
             nodes[from].edges[to] = {to, cost};
             nodes[to].edges[from] = {from, cost};
         }
-        // outfile << "----- At this point, change is applied\n";
+        outfile << "----- At this point, change is applied: " << from << " to " << to << " with cost " << cost << "\n";
         writeForwardingTable(outfile, nodes, routeNext, routeCost);
         writeMessages(outfile, messages, routeNext, routeCost);
     }
