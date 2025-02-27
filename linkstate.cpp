@@ -159,7 +159,9 @@ void writeMessages(ofstream& outfile, const vector<string>& messages, const map<
         } else {
             outfile << "from " << src << " to " << dst << " cost infinite hops unreachable message " << msg << "\n";
         }
+        
     }
+    outfile << "\n"; // Add blank line between tables
 }
 
 int main(int argc, char** argv) {
