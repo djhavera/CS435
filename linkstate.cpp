@@ -28,7 +28,7 @@ void writeMessages(ofstream& outfile, const vector<string>& messages, const map<
 
 void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<int, map<int, int>>& routeNext, map<int, map<int, int>>& routeCost) {
     for (const auto& [id, node] : nodes) {
-        outfile << "<forwarding table entries for node " << id << ">\n";
+        // outfile << "<forwarding table entries for node " << id << ">\n";
         // Compute shortest paths using Dijkstra's algorithm
         map<int, int> dist;
         map<int, int> nextHop;
@@ -75,7 +75,10 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<in
         for (const auto& entry : tableEntries) {
             outfile << entry.first << " " << entry.second.first << " " << entry.second.second << "\n";
         }
+    outfile << "\n"; // Add blank line between tables
     }
+
+    
 }
 
 void parseTopologyFile(const string& filename, map<int, Node>& nodes) {
@@ -190,7 +193,7 @@ int main(int argc, char** argv) {
             nodes[from].edges[to] = {to, cost};
             nodes[to].edges[from] = {from, cost};
         }
-        outfile << "----- At this point, change is applied\n";
+        // outfile << "----- At this point, change is applied\n";
         writeForwardingTable(outfile, nodes, routeNext, routeCost);
         writeMessages(outfile, messages, routeNext, routeCost);
     }
