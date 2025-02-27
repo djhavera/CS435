@@ -143,9 +143,7 @@ void writeMessages(ofstream& outfile, const vector<string>& messages, const map<
             current = routeNext.at(current).at(dst);
         }
         if (pathExists) {
-            path.push_back(dst);
-
-            // Write message with path
+            // Write message with path excluding the destination node
             outfile << "from " << src << " to " << dst << " cost " << routeCost.at(src).at(dst) << " hops ";
             for (size_t i = 0; i < path.size(); ++i) {
                 outfile << path[i];
