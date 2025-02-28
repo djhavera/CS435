@@ -71,7 +71,7 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<in
         }
         sort(tableEntries.begin(), tableEntries.end());
 
-        outfile << "<forwarding table entries for node " << id << ">\n";
+        // outfile << "<forwarding table entries for node " << id << ">\n";
         for (const auto& entry : tableEntries) {
             outfile << entry.first << " " << entry.second.first << " " << entry.second.second << "\n";
         }
@@ -189,7 +189,7 @@ int main(int argc, char** argv) {
             nodes[from].edges[to] = {to, cost};
             nodes[to].edges[from] = {from, cost};
         }
-        outfile << "----- At this point, change is applied: " << from << " to " << to << " with cost " << cost << "\n";
+        // outfile << "----- At this point, change is applied: " << from << " to " << to << " with cost " << cost << "\n";
         writeForwardingTable(outfile, nodes, routeNext, routeCost);
         writeMessages(outfile, messages, routeNext, routeCost);
     }
