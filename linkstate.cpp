@@ -67,8 +67,6 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<in
         for (const auto& [dest, _] : nodes) {
             if (dist[dest] < numeric_limits<int>::max()) {
                 tableEntries.push_back({dest, {nextHop[dest], dist[dest]}});
-            } else if (dest != id) {
-                tableEntries.push_back({dest, {0, -999}});
             }
         }
         sort(tableEntries.begin(), tableEntries.end());
