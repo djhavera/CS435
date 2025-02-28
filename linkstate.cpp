@@ -64,19 +64,16 @@ void writeForwardingTable(ofstream& outfile, const map<int, Node>& nodes, map<in
 
         // Write forwarding table for node id
         vector<pair<int, pair<int, int>>> tableEntries;
-        for (const auto& [dest, cost] : dist) {
-            if (cost < numeric_limits<int>::max()) {
-                tableEntries.push_back({dest, {nextHop[dest], cost}});
+        for (const auto& [dest, _] : nodes) {
+            if (dist[dest] < numeric_limits<int>::max()) {
+                tableEntries.push_back({dest, {nextHop[dest], dist[dest]}});
+            } else if (dest != id) {
+                tableEntries.push_back({dest, {0, -999}});
             }
         }
         sort(tableEntries.begin(), tableEntries.end());
 
-        // Skip printing if the table contains only the node's entry for itself
-        //if (tableEntries.size() == 1 && tableEntries[0].first == id) {
-        //    continue;
-       // }
-
-        //outfile << "<forwarding table entries for node " << id << ">\n";
+        outfile << "<forwarding table entries for node " << id << ">\n";
         for (const auto& entry : tableEntries) {
             outfile << entry.first << " " << entry.second.first << " " << entry.second.second << "\n";
         }
